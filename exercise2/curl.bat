@@ -1,0 +1,2 @@
+curl https://api.stripe.com/v1/charges -u sk_test_51HhcQCDWDxsqLGyjqECJvBzJT6gCN0VXhDB8OhcT5PXtpShLaWKbBJvPzsRRjIiqxi00VjPHaLe3Nb1HLMMLqD3i008zNvJOR4:
+# The colon prevents curl from asking for a password.

@@ -1,0 +1,151 @@
+// Perform GET
+const https = require('https')
+const options = {
+  hostname: 'whatever.com',
+  port: 443,
+  path: '/todos',
+  method: 'GET'
+}
+
+const req = https.request(options, res => {
+  console.log(`statusCode: ${res.statusCode}`)
+
+  res.on('data', d => {
+    process.stdout.write(d)
+  })
+})
+
+req.on('error', error => {
+  console.error(error)
+})
+
+req.end()
+
+// Perform POST
+const https = require('https')
+
+const data = JSON.stringify({
+  todo: 'Buy the milk'
+})
+
+const options = {
+  hostname: 'whatever.com',
+  port: 443,
+  path: '/todos',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Content-Length': data.length
+  }
+}
+
+const req = https.request(options, res => {
+  console.log(`statusCode: ${res.statusCode}`)
+
+  res.on('data', d => {
+    process.stdout.write(d)
+  })
+})
+
+req.on('error', error => {
+  console.error(error)
+})
+
+req.write(data)
+req.end()
+
+//----------------------------------------------------------------------
+// Have a look at this object
+const args = require('minimist')(process.argv.slice(2)) cmdLine node --args
+args['name'] //joe
+
+process.argv.forEach((val, index) => {
+  console.log(`${index}: ${val}`)
+})
+
+-------------------JSON NOTE-------------------------
+// This creates an object prototype whaich has a toString method
+
+var wordcnt = arrayOfQuestions
+  .replace(/[^\w\s]/g, "")
+  .split(/\s+/)
+  .reduce(function(map, word){
+    map[word] = (map[word]||0)+1;
+    return map;
+  }, {}); // Object literal instead of Object.create(null)
+// Result will be an array of words seperated with a space and no \\
+
+Next use -- JSON.stringify(wordcnt)
+-------------------JSON NOTE-------------------------
+
+
+===================
+When the request comes from the client JSON.parse the data
+ Sample data object sent by client
+
+ example 1
+ ------- request data object
+ ServerSide -- route --
+ Server or receiver method use something like this
+ module.exports = function (app) {
+    app.post('/questionnaire/submit', function (req, res) { // Ajax Call
+        var data = JSON.parse(req.body);
+        res.send({});
+    });
+};
+
+ Client or sender method use something like this
+ function submitData() { // Send a data object to the server
+  
+     $.ajax({
+        type: 'POST',
+        url: '/questionnaire/submit',
+        dataType: "json",
+        data: JSON.stringify({
+            satisfactory: "text 1",
+            improvement: "text 2",
+            rating: 0.7
+        })
+    }).done(function () {
+        $(location).attr('href', '/sendOff');
+    }).fail(function () {
+
+    });
+ }
+--------- request data object
+
+ example 2
+ ------- request data object
+
+  $.ajax({
+      type: 'POST',
+      url: '/questionnaire/submit',
+      contentType: 'application/json',
+      data: JSON.stringify({ satisfactory: "text 1", rating: 0.7 })
+  });
+
+
+  app.post('/questionnaire/submit', function (req, res) { // Ajax Call
+      var data = JSON.parse(req.body);
+      console.log(data.rating); // 0.7
+      res.send(data);
+  });
+
+ ------- request data object
+
+ ------- esc chars for json -----------
+
+  \b  Backspace (ascii code 08)
+  \f  Form feed (ascii code 0C)
+  \n  New line
+  \r  Carriage return
+  \t  Tab
+  \"  Double quote
+  \\  Backslash character
+
+---------------------------------------
+
+
+
+
+

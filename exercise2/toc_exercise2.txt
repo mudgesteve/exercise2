@@ -1,0 +1,464 @@
+excercise 2 HomeWork and end-points
+
+---------------------------------------------------------------------------------
+	Things to DO: -- section exercise 2
+---------------------------------------------------------------------------------
+	
+	Using the project at its current state:
+	
+	Develop Plan: as follows: (with a good plan postman will be MUCH more effective tool for me)
+	
+		-- The plan is the most important part
+		-- Programs involed:
+			-- VSCode -- node.js files
+			-- NotePad -- for notes
+			-- command prompt 
+			-- console.logs -- used for easy access to ERROR
+			-- Postman -- used for client-side agent
+			-- Browser -- google searches!
+	
+	Prepare code for debugging --
+	
+		-- set up z.bat file so (changing debug mode and env vars is quick) -- Shown Below In Helpers Section
+		-- USE a standard pattern for console.log 
+			< each method name for example as its own: >
+			-- name,
+			-- params (data, err, callback),
+			-- Purpose Why was it called? -- like like method [get, put, post, delete] or OTHER reason
+			-- Returns What does it return?
+		
+		example:
+			console.log('--NAME: handlers._users.post--','--RECEIVES: (data,callback)--'\n, '--CREATE USER--', '--(status, payload)--');
+				
+		-- Build a snippet for this pattern --  -- Details Shown Below In Helpers Section
+		-- Pattern for zx snippet: console.log('--METHOD NAME--','--PARAMS--', '--PURPOSE[s]--', '--RETURNS--');
+
+		Work code from top to bottom while doing these task:
+		
+		-- Avoid Console.logs in sensitive files like Workers.js with logs turned on
+		-- while debugging use them sparingly -- TODO clean-up at deployment 
+		-- review as you go get familar with
+		-- insert console.log at the top of each method using that snippet
+		-- Fill in the console log [vars from snippett] to get familar
+		-- Add section separtors [snippett see below]
+		
+		Work code from bottom to top while doing these task:
+		
+		-- Change error labels: 
+		-- Missing required field(s) is to generic for logging while testing alot! 
+		-- Understand less is better at time of deployment trim the excess out
+		-- Work UP (tree effect) putting -- required vars into the missing required fields errs
+			NOTE: I have learned that while writing a procedure I work [Top Down]
+				while errors on the other hand I work [Bottom Top]
+				
+		-- insert // End {Method Name} one line below last bracket of the method -- for when i scroll up
+		
+		
+		
+---------------------------------------------------------------------------------
+	Testing: -- section 
+---------------------------------------------------------------------------------
+
+	Test ALL -- end points in Router -- till there are NO ERRORS
+		(log ALL LOT During this process -- include bug and how you resolved it)
+		
+		** See //Router below -- for list of routes!
+		-- Record any priority-level errors (Log the error(s) [] and what fixed it/them)
+
+---------------------------------------------------------------------------------
+	DO the homework: -- section -- exercise 2
+---------------------------------------------------------------------------------
+
+		1. New users CRUD:
+			-- can be created, 
+			-- their information can be edited,
+			-- and they can be deleted. 
+			-- READ as well
+			
+			Propertys: (We should store their)
+			-- We should store their name, 
+			-- email address, 
+			-- and street address.
+			-- online Flag in user -- used for signin signout
+
+		2. Users can 
+			-- log in 
+			-- and log out
+			(by creating or destroying a token.)
+
+		3. When a user is logged in, 
+			-- they should be able to GET all the possible menu items
+				(these items can be hardcoded into the system).
+
+		4. When a user is logged in,
+			-- should be able to fill a shopping cart with menu items
+
+		5. When a user is logged in,
+			-- should be able to create an order. You should integrate,
+			 with the Sandbox of Stripe.com to accept their payment. ,
+			 Note: Use the stripe sandbox for your testing. Follow this,
+			  link and click on the "tokens" tab to see the fake tokens ,
+			  you can use server-side to confirm the integration ,
+			  is working: https://stripe.com/docs/testing#cards
+
+		6. When an order is placed, 
+			-- you should email the user a receipt. You should integrate ,
+			with the sandbox of Mailgun.com for this. Note: Every Mailgun ,
+			account comes with a sandbox email account domain ,
+			(whatever@sandbox123.mailgun.org) that you can send from ,
+			by default. So, there's no need to setup any DNS for your domain,
+			 for this task ,
+		https://documentation.mailgun.com/en/latest/faqs.html#how-do-i-pick-a-domain-name-for-my-mailgun-account
+	
+	
+---------------------------------------------------------------------------------
+	Router: -- section -- exercise 2
+---------------------------------------------------------------------------------
+
+	/ping -- simply returns a response of 200 using a setTimeout
+
+	//users -- access users collection
+	/users -- acceptableMethods = ["post", "get", "put", "delete"];
+		GET /users TODO needs work -- get list of users -- returns nothing
+		GET /users/:id	-- ?email=email@youremil.com -- get a single user by id email is unique
+		PUT /users/:id	-- ?email=email@youremil.com -- update a single user by id email is unique
+	   POST /users/		-- Add new User
+	 DELETE /users/:id	-- ?email=email@youremil.com -- delete a single user by id email is unique
+	 
+	 /tokens -- acceptableMethods = ["post", "get", "put", "delete"];
+		GET /tokens/:id	-- get a valid token back or 404
+		PUT /tokens/:id	-- adds 1 hour to valid token if the given extend flag set to true
+	   POST /tokens/		-- Add new Token
+	 DELETE /tokens/verifyToken/:id	-- ?email=email@youremil.com -- delete a single token by (id email is unique)
+	 
+	 /checks -- acceptableMethods = ["post", "get", "put", "delete"];
+		GET /checks/:id	-- get a checks back or 404
+		PUT /checks/:id	-- update a cart_item -- given id
+	   POST /checks/:id	-- ?email=email@youremil.com-- Add new Cart_Item {Required menuItem from and array},
+	 DELETE /checks/:id	-- ?id of cart item -- delete cart_item by (id is unique)
+	 
+	 /signin
+		POST /signin -- 
+			{Required email - str, name - str, address - str, password - str, tosAgreement - boolean, online - boolean }
+	 
+	 /signout
+		POST /signout -- required a valid token!
+
+---------------------------------------------------------------------------------
+	Instructions: -- section -- exercise 2
+---------------------------------------------------------------------------------
+
+	These instructions are for using excercise2 with POSTMAN
+	
+	Start up the server: index.js
+
+---------------------------------------------------------------------------------
+	POSTMAN -- User Routes: -- section -- exercise 2
+---------------------------------------------------------------------------------
+
+	USERS:
+	
+	/users -- acceptableMethods = ["post", "get", "put", "delete"];
+		GET /users TODO needs work -- get list of users -- returns nothing
+			In Postman 
+				set on GET
+				url = localhost:3000/users or 3001/users for http or https (in that order)
+				Body = empty
+				Returns list of users
+				
+		GET /users/:id	-- ?email=email@youremil.com -- get a single user by id email is unique
+			In Postman 
+				set on GET
+				url = localhost:3000/users or 3001/users for http or https (in that order)
+				Body = email & password
+				Token = must be valid
+				Returns user in payload
+				
+		PUT /users/:id	-- ?email=email@youremil.com -- update a single user by id email is unique
+			In Postman 
+				set on PUT
+				url = localhost:3000/users or 3001/users for http or https (in that order)
+				Body = email & password & address & tosAgreemant & online & name {Required: email & password} 
+				EDIT SOMETHING = make changes to data
+				Token = must be valid
+				Returns user in userData -- Updates the data
+				
+	   POST /users/		-- Add new User
+			In Postman 
+				set on POST
+				url = localhost:3000/users or 3001/users for http or https (in that order)
+				Body = email & password & name & address & tosAgreement
+				Token = must be valid
+				Returns user in Body of Postman and payload
+				
+	 DELETE /users/:id	-- ?email=email@youremil.com -- delete a single user by id email is unique
+			In Postman 
+				set on DELETE
+				url = localhost:3000/users or 3001/users for http or https (in that order)
+				Body = Nothing
+				Token = must be valid
+				Returns user in Body of Postman and payload
+
+---------------------------------------------------------------------------------
+	POSTMAN -- Token Routes: -- section -- exercise 2
+---------------------------------------------------------------------------------
+	
+	TOKENS:
+
+	/tokens -- acceptableMethods = ["post", "get", "put", "delete"];
+		GET /tokens/:id	-- get a valid token back or 404
+			In Postman
+				set on GET
+				url = localhost:3000/users or 3001/users for http or https (in that order)
+				Body = Nothing
+				Token = must be valid
+				Returns user in Body of Postman and payload
+				
+		PUT /tokens/:id	-- adds 1 hour to valid token if the given extend flag set to true
+			In Postman
+				set on PUT
+				url = ?id= in url for this one and localhost:3000/users or 3001/users for http or https (in that order)
+				Body = email, extend
+				Token = must be valid
+				Returns user in Body of Postman and payload
+				
+	   POST /tokens/		-- Add new Token
+			In Postman
+				set on POST
+				url = /tokens
+				Body = email, password
+				Token = must be valid
+				Returns token in Body of Postman
+				
+	 DELETE /tokens/verifyToken/:id	-- ?email=email@youremil.com -- delete a single token by (id email is unique)
+			In Postman
+				set on POST
+				url = /tokens
+				Body = email, password
+				Token = must be valid
+				Returns Deletes the token and sends to Body of Postman
+
+---------------------------------------------------------------------------------
+	POSTMAN -- Cart-Items Routes: -- section -- exercise 2
+---------------------------------------------------------------------------------
+
+	checks:
+	
+	 /checks -- acceptableMethods = ["post", "get", "put", "delete"];
+		GET /checks/:id	-- get a checks back or 404
+		
+		PUT /checks/:id	-- update a cart_item -- given id
+		
+	   POST /checks/:id	-- ?email=email@youremil.com-- Add new Cart_Item {Required menuItem from and array}
+			In Postman -- need: protocol && url && method && successCodes && timeoutSeconds)
+				set on POST
+				url = /tokens
+				Body = menuitem MUST BE ONE of these ["Pencil", "Pen", "Lunch", "Dinner"] -- limits 5 max during dev 150!
+				Token = must be valid -- in header
+				Returns Adds the cart_item and sends to Body of Postman
+				
+	 DELETE /checks/:id	-- ?id of cart item -- delete cart_item by (id is unique)
+
+---------------------------------------------------------------------------------
+	POSTMAN -- Sign In Route: -- section -- exercise 2
+---------------------------------------------------------------------------------
+
+	SIGNIN:
+	
+	/signin
+		POST /signin -- 
+			{Required email - str, name - str, address - str, password - str, tosAgreement - boolean, online - boolean }
+
+---------------------------------------------------------------------------------
+	POSTMAN -- Sign Out Route: -- section -- exercise 2
+---------------------------------------------------------------------------------
+
+	SIGNOUT:
+	
+	/signout
+		POST /signout -- required a valid token!				
+
+---------------------------------------------------------------------------------
+	POSTMAN -- End of Routes: -- section -- exercise 2
+---------------------------------------------------------------------------------
+
+
+
+---------------------------------------------------------------------------------
+	HELPERS: -- section -- exercise 2
+---------------------------------------------------------------------------------
+
+---------------------------------------------------------------------------------
+	Snippets: -- less turn-around time for cmd to postman to vscode the better
+---------------------------------------------------------------------------------
+
+
+	----------------------------------
+		Console.log snippet[begin]:
+	----------------------------------
+		Pattern for zx snippet: console.log('--METHOD NAME--','--PARAMS--', '--PURPOSE[s]--', '--RETURNS--');
+		"zx": {
+			// Leaving scope off will make it a global snippet
+			"prefix": "zx",
+			"body": [
+					"$1console.log(`$CURRENT_DAY_NAME -- [[$CURRENT_HOUR][$CURRENT_MINUTE][$CURRENT_SECOND]]",
+					" -- METHOD: $<{METHOD}> ---------- PARAMS: $<{PARAMS}> ---------- PURPOSE: $<{PURPOSE}>",
+					" ---------- RETURNS: $<{RETURNS}> -->, <data>`);"
+			]
+		}
+		Result of snippet: 
+			console.log(`Saturday -- [[20][36][40]] -- METHOD: handlers.users ,
+				    PARAMS: $<{(data,callback)}> --- PURPOSE:  [VALIDDATES] the Method,
+				    routes it to METHOD  ---------- RETURNS: (err) passes received data -->`, data);
+			NOTE: -- basically fill in the blanks 
+
+	----------------------------------
+		Console.log snippet[end]:
+	----------------------------------
+	----------------------------------
+		Required Vars snippet:
+	----------------------------------	
+		"xrv": {
+			// Leaving scope off will make it a global snippet
+			// Required variables -- for error returns
+			"prefix": "zx",
+			"body": [
+				"$1'fn:', ${firstName}, 'ln', ${lastName}, 'phnoe', ${phone}, 'password', ${password}, 'tosApgreement', ${tosAgreement}"
+			]
+		},
+
+	----------------------------------
+		Braces {} snippet:
+	----------------------------------
+
+	{ // surronds selection with {}
+	  "key": "ctrl+m",
+	  "command": "editor.action.insertSnippet",
+	  "when": "editorTextFocus",
+	  "args": {
+	      "snippet": "${${2}${TM_SELECTED_TEXT}${2}}"
+	  }
+	}
+
+	----------------------------------
+		Section Change snippet:
+	----------------------------------
+
+	"sc": {
+		"prefix": "sc",
+		"body": [
+			"$1// Section Change ---------------------         Section Change       ,
+				---------------------------------------- Section Change ################## -------------"
+		]
+	}
+		
+---------------------------------------------------------------------------------
+	Batch File[begin]: -- less turn-around time for cmd to postman to vscode the better
+---------------------------------------------------------------------------------
+
+	ECHO OFF
+	
+	cls
+	:: Skip over with this
+	GOTO PROMPT_ME
+	
+	
+	:: This batch file details
+	TITLE My System info
+	ECHO Plesae Wait....
+	:: Sec 1
+	ECHO ========================
+	ECHO Windows info
+	ECHO ========================
+	systeminfo | findstr /c:"OS Name"
+	systeminfo | findstr /c:"Version"
+	systeminfo | findstr /c:"System Type"
+	
+	:: Sec 2
+	ECHO ========================
+	ECHO Hardware info
+	ECHO ========================
+	systeminfo | findstr /c:"Total Physical Memory"
+	wmic cpu get name
+	wmic path win32_videocontroller get name
+	wmic path win34_videocontroller get name
+	
+	:: Sec 2
+	ECHO ========================
+	ECHO Network info
+	ECHO ========================
+	ipconfig | findstr IPv4
+	ipconfig | findstr IPv6
+	
+	:PROMPT_ME
+	
+	:MENU
+	ECHO ...............................................
+	ECHO Enter the mode for this run
+	ECHO ...............................................
+	ECHO 1. config
+	ECHO 2. data
+	ECHO 3. handlers
+	ECHO 4. helpers
+	ECHO 5. server
+	ECHO 6. workers
+	ECHO 7. http
+	echo.
+	
+	set /p web=Type option:
+	if "%web%"=="1" goto CONFIG
+	if "%web%"=="2" goto DATA
+	if "%web%"=="3" goto HANDLERS
+	if "%web%"=="4" goto HELPERS
+	if "%web%"=="5" goto SERVER
+	if "%web%"=="6" goto WORKERS
+	if "%web%"=="7" goto HTTP
+	
+	GOTO END
+	
+	:CONFIG 
+	SET NODE_DEBUG=config
+	echo config
+	
+	GOTO END
+	
+	:DATA 
+	SET NODE_DEBUG=data
+	GOTO END
+	
+	:HANDLERS 
+	SET NODE_DEBUG=handlers
+	GOTO END
+	
+	:HELPERS 
+	SET NODE_DEBUG=helpers
+	GOTO END
+	
+	:SERVER 
+	SET NODE_DEBUG=server
+	GOTO END
+	
+	:WORKERS 
+	SET NODE_DEBUG=workers
+	GOTO END
+	
+	:HTTP 
+	SET NODE_DEBUG=http
+	GOTO END
+	
+	::note use : end at bottom at times
+	:END 
+	
+	
+	SET NODE_ENV=staging
+	SET HTTP_PORT=3000
+	SET HTTPS_PORT=3001
+	SET HTTP_PORT_PROD=5000
+	SET HTTPS_PORT_PORT=5001
+	
+	ECHO All Done....
+	node index.js
+
+-----------------------------------------------------------------------------------------
+	Batch File[end]: -- less turn-around time for cmd to postman to vscode the better
+-----------------------------------------------------------------------------------------

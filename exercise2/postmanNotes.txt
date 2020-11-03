@@ -1,0 +1,47 @@
+
+-------------------------------
+test user:
+
+{
+    "firstName": "Greg on PUT",
+    "lastName": "Mudge",
+    "phone": "1111111111",
+    "password": "password",
+    "tosAgreement" : true,
+    "onLine": true
+}
+
+NEW user --  model
+{
+  "firstName": "Newbie",
+  "lastName": "Watson",
+  "phone": "2222222222",
+  "password": "password",
+  "tosAgreement": true,
+  "onLine": true,
+  "streetAddress": "My Street Address",
+  "email": "me@gmail.com",
+  "name": ""
+}
+
+-------------------------------
+test check data:
+{
+    "id": "jfammrk9408xbek0g7up",
+    "userPhone": "1111111111",
+    "protocol": "https",
+    "url": "checks",
+    "method": "post",
+    "successCodes": [
+        200,
+        400,
+        401,
+        402,
+        403,
+        404,
+        500,
+        502
+    ],
+    "timeoutSeconds": 3600000
+}
+

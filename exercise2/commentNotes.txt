@@ -1,0 +1,104 @@
+
+Comment While Coding!
+
+examples of comment blocks
+---------------------------
+
+/**
+  * @desc opens a modal window to display a message
+  * @param string $msg - the message to be displayed
+  * @return bool - success or failure
+*/
+function modalPopup($msg) {
+...
+}
+
+---------------------------------------------------------------------------------------
+
+Top of class or .js file 
+/** 
+  * @desc this class will hold functions for user interaction
+  * examples include user_pass(), user_username(), user_age(), user_regdate()
+  * @author Jake Rocheleau jakerocheleau@gmail.com
+  * @required settings.php
+*/
+abstract class myWebClass { }
+
+---------------------------------------------------------------------------------------
+
+function getTheMail() {
+  // code here will build e-mail
+ 
+  /* run code if our custom sendMyMail() function call returns true
+     find sendMyMail() in /libs/mailer.class.php
+     we check if the user fills in all fields and message is sent! */
+  if(sendMyMail()) { return true; // keep true and display onscreen success
+    }
+}
+
+---------------------------------------------------------------------------------------
+
+$(document).ready(function() {
+        $('.sub').hide(); // hide sub-navigation on pageload
+     
+        /** check for a click event on an anchor inside .itm div
+              prevent the default link action so the page doesn't change on click
+              access the parent element of .itm followed by the next .sub list to toggle open/close
+        **/
+     
+        $('.itm a').live('click', function(e){
+        e.preventDefault();
+        $(this).parent().next('.sub').slideToggle('fast');
+       });
+});
+
+---------------------------------------------------------------------------------------
+
+/* Initialize and invoke a the greetUser function
+to assign user's name to a constant and print out
+a greeting. */
+
+function greetUser() {
+    const name = prompt("What is your name?");
+    console.log("Hello ," + name + "! How are you?");
+}
+
+greetUser();
+
+---------------------------------------------------------------------------------------
+
+/**
+ * Initialize constant with an array of strings.
+ * Loop through each item in the array and print
+ * it to the console.
+ */
+
+const seaCreatures = ["Shark", "Fish", "Octopus"];
+
+for (const seaCreature of seaCreatures) {
+  console.log(seaCreature);
+}
+
+---------------------------------------------------------------------------------------
+
+// Function to add two numbers
+function addTwoNumbers(x, y) {
+  let sum = x + y;
+  return sum;
+}
+
+// Function to multiply two numbers
+function multiplyTwoNumbers(x, y) {
+  let product = x * y;
+  return product;
+}
+
+/* In this example, we're commenting out the addTwoNumbers
+function, therefore preventing it from executing. Only the
+multiplyTwoNumbers function will run */
+
+// addTwoNumbers(3, 5);
+multiplyTwoNumbers(5, 9);
+
+---------------------------------------------------------------------------------------
+
